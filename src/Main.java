@@ -1,4 +1,6 @@
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,7 +10,29 @@ public class Main {
         User thurdUser = new User("Ron", "Perlman", 73, "perlman@ukr.net");
         User fourthUser = new User("Maggie", "Siff", 49, "siff@mail.ru");
         User fifthUser = new User("Tommy", "Flanagan", 58, "flanagan@gmail.com");
-        List<User> users = List.of(firstUser, secondUser, thurdUser, fourthUser, fifthUser);
-        users.forEach(System.out::println);
+        User sixthUser = new User("Barbara", "Flanagan", 56, "flanagan@gmail.com");
+        List<User> users = List.of(firstUser, secondUser, thurdUser, fourthUser, fifthUser, sixthUser);
+        users.stream()
+                .sorted()
+                .map(User::getSurname)
+                .distinct()
+                .forEach(System.out::println);
+        System.out.println();
+        Optional<String> op = users.stream()
+                .filter(surname -> surname.getSurname().length() < 8)
+                .map(User::getName)
+                .findAny();
+        try{
+            System.out.println(op.orElseThrow(() -> new NotFoundValueException("Wasn't find any value")));
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+        System.out.println();
+        users.stream()
+                .filter(email -> email.getEmail().length() > 14)
+                .map(User::getAge)
+                .skip(3)
+                .forEach(System.out::println);
+
     }
 }

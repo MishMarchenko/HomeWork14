@@ -1,4 +1,4 @@
-public class User {
+public class User implements Comparable<User>{
     private String name;
     private String surname;
     private int age;
@@ -50,5 +50,10 @@ public class User {
                 "; surname = " + surname  +
                 "; age = " + age +
                 "; email = " + email;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return age - o.getAge();
     }
 }
