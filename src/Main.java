@@ -10,12 +10,14 @@ public class Main {
         User fifthUser = new User("Tommy", "Flanagan", 58, "flanagan@gmail.com");
         User sixthUser = new User("Barbara", "Flanagan", 56, "flanagan@gmail.com");
         List<User> users = List.of(firstUser, secondUser, thurdUser, fourthUser, fifthUser, sixthUser);
+        System.out.println("First part");
         users.stream()
                 .sorted()
                 .map(User::getSurname)
                 .distinct()
                 .forEach(System.out::println);
         System.out.println();
+        System.out.println("Second part");
         Optional<String> op = users.stream()
                 .filter(surname -> surname.getSurname().length() < 8)
                 .map(User::getName)
@@ -26,6 +28,7 @@ public class Main {
             throw new RuntimeException(e);
         }
         System.out.println();
+        System.out.println("Third part");
         users.stream()
                 .filter(email -> email.getEmail().length() > 14)
                 .map(User::getAge)
